@@ -12,6 +12,7 @@
 		2F275FEC2118319E0059A758 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F275FEA2118319E0059A758 /* Main.storyboard */; };
 		2F275FEE2118319F0059A758 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F275FED2118319F0059A758 /* Assets.xcassets */; };
 		2F275FF12118319F0059A758 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F275FEF2118319F0059A758 /* LaunchScreen.storyboard */; };
+		2FD04251216606E5004611DA /* KYShutterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD04250216606E5004611DA /* KYShutterButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		2F275FED2118319F0059A758 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F275FF02118319F0059A758 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F275FF22118319F0059A758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FD04250216606E5004611DA /* KYShutterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYShutterButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				2F275FE62118319E0059A758 /* AppDelegate.swift */,
 				2F275FE82118319E0059A758 /* ViewController.swift */,
+				2FD04250216606E5004611DA /* KYShutterButton.swift */,
 				2F275FEA2118319E0059A758 /* Main.storyboard */,
 				2F275FED2118319F0059A758 /* Assets.xcassets */,
 				2F275FEF2118319F0059A758 /* LaunchScreen.storyboard */,
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FD04251216606E5004611DA /* KYShutterButton.swift in Sources */,
 				2F275FE92118319E0059A758 /* ViewController.swift in Sources */,
 				2F275FE72118319E0059A758 /* AppDelegate.swift in Sources */,
 			);
@@ -283,6 +287,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BY96HCBY6M;
 				INFOPLIST_FILE = MyCameraApp3/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -290,7 +295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = wotjd.MyCameraApp3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -301,6 +306,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BY96HCBY6M;
 				INFOPLIST_FILE = MyCameraApp3/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -308,7 +314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = wotjd.MyCameraApp3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

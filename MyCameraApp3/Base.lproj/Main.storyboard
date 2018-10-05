@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,132 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyCameraApp3" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FZZ-er-z7Z">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="JXk-Uf-9bA" appends="YES" id="v2o-oI-nPn"/>
+                                    <outletCollection property="gestureRecognizers" destination="mYL-j4-Zmf" appends="YES" id="gq4-6J-7H2"/>
+                                    <outletCollection property="gestureRecognizers" destination="Zzq-WZ-97Z" appends="YES" id="pXX-qR-pqZ"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lII-hy-h8k">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVP-UP-DNF">
+                                        <rect key="frame" x="175" y="13" width="24" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                                        <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="Flash On Icon"/>
+                                        <connections>
+                                            <action selector="flashTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FKQ-zZ-Cki"/>
+                                        </connections>
+                                    </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InY-3Y-V48">
+                                        <rect key="frame" x="32" y="13" width="310" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="kdY-Bl-SEP"/>
+                                    <constraint firstAttribute="width" constant="375" id="yTW-dp-27E"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XL-He-s1r">
+                                <rect key="frame" x="130" y="50" width="115" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-zV-dpM">
+                                <rect key="frame" x="30" y="319" width="314" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="exposureSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="YpH-fK-EnW"/>
+                                </connections>
+                            </slider>
+                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="16" translatesAutoresizingMaskIntoConstraints="NO" id="OhH-H2-1yL">
+                                <rect key="frame" x="30" y="543" width="314" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="sliderTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="pPk-Dd-781"/>
+                                    <action selector="sliderTouchUp:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="DIM-L6-Sbl"/>
+                                    <action selector="sliderTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V19-Gr-6eJ"/>
+                                    <action selector="zoomSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="fmB-8T-0tP"/>
+                                </connections>
+                            </slider>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDK-IQ-FDW">
+                                <rect key="frame" x="0.0" y="583" width="375" height="84"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8t0-jo-yOy" customClass="KYShutterButton" customModule="MyCameraApp3" customModuleProvider="target">
+                                        <rect key="frame" x="155" y="10" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="recordTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aZh-yb-Ada"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="7Qj-Dc-2pF"/>
+                                    <constraint firstAttribute="width" constant="375" id="Oat-SX-K44"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="lII-hy-h8k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Urf-bk-X1Y"/>
+                            <constraint firstItem="tDK-IQ-FDW" firstAttribute="top" secondItem="lII-hy-h8k" secondAttribute="bottom" constant="533" id="mn7-5Q-ylE"/>
+                            <constraint firstItem="tDK-IQ-FDW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oNa-0x-YbJ"/>
+                            <constraint firstItem="lII-hy-h8k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zCQ-RZ-sEt"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="camPreview" destination="FZZ-er-z7Z" id="Q6i-Gn-8nL"/>
+                        <outlet property="exposureSlider" destination="Ls5-zV-dpM" id="WPw-LW-OMV"/>
+                        <outlet property="flashButton" destination="oVP-UP-DNF" id="nWf-tX-vwR"/>
+                        <outlet property="recordingTimeLabel" destination="3XL-He-s1r" id="puz-dX-1s9"/>
+                        <outlet property="zoomLabel" destination="InY-3Y-V48" id="hZ1-II-jgw"/>
+                        <outlet property="zoomSlider" destination="OhH-H2-1yL" id="hG7-Ec-T6o"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="JXk-Uf-9bA">
+                    <connections>
+                        <action selector="focusTap:" destination="BYZ-38-t0r" id="cbS-As-Ioa"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="mYL-j4-Zmf">
+                    <connections>
+                        <action selector="focusLongPress:" destination="BYZ-38-t0r" id="FmK-3c-uos"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pinchGestureRecognizer id="Zzq-WZ-97Z">
+                    <connections>
+                        <action selector="pinch:" destination="BYZ-38-t0r" id="6Fc-Ys-WmR"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Flash On Icon" width="24" height="24"/>
+    </resources>
 </document>
