@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
+// TODO : 권한 관련 기능 - View 가 사라지는 경우의 처리가 필요함
 class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     @IBOutlet weak var camPreview: UIView!
     
@@ -17,6 +18,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     @IBOutlet weak var zoomLabel: UILabel!
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var exposureSlider: UISlider!
+    @IBOutlet weak var recordingButton: UIButton!
     
     @IBOutlet weak var recordingTimeLabel: UILabel!
     
@@ -39,24 +41,76 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     var recordingTimer: Timer?
     var seconds : Int64 = 0
     
+    
+    private var isAuthorized = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 //        recordingTimeLabel.layer.masksToBounds = true
 //        recordingTimeLabel.layer.cornerRadius = 10
-        if self.setupSession() {
+        
+        self.recordingButton.isEnabled = false
+        self.flashButton.isEnabled = false
+        self.zoomSlider.isEnabled = false
+        self.exposureSlider.isEnabled = false
+        
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            break
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { granted in
+                if !granted {
+                    self.isAuthorized = false
+                }
+            })
+        default:
+            self.isAuthorized = false
+            break
+        }
+        
+        print("ViewDidLoad")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
+        
+        if !self.isAuthorized {
+            DispatchQueue.main.async {
+                let changePrivacySetting = "The app doesn't have permission to use the camera, please change privacy settings"
+                let message = NSLocalizedString(changePrivacySetting, comment: "Alert message when the user has denied access to the camera")
+                let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"),
+                                                        style: .cancel,
+                                                        handler: nil))
+                
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"),
+                                                        style: .`default`,
+                                                        handler: { _ in
+                        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+                }))
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        } else if self.setupSession() {
             self.setupPreview()
             self.startSession()
-        
+            
+            self.recordingButton.isEnabled = true
+            self.flashButton.isEnabled = true
+            
             self.exposureSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))
             self.exposureSlider.layer.position = CGPoint(x: 325, y: 334)
-//            exposureSlider.minimumValue = self.activeInput.device.minExposureTargetBias   // -8.0
-//            exposureSlider.maximumValue =  self.activeInput.device.maxExposureTargetBias  // 8.0
+            //            exposureSlider.minimumValue = self.activeInput.device.minExposureTargetBias   // -8.0
+            //            exposureSlider.maximumValue =  self.activeInput.device.maxExposureTargetBias  // 8.0
             self.exposureSlider.minimumValue = -5.0
             self.exposureSlider.maximumValue = 5.0
             self.exposureSlider.value = self.activeInput.device.exposureTargetBias
             
             self.view.addSubview(exposureSlider)
+        } else {
+            print("failed to setup")
         }
     }
 
@@ -79,7 +133,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
         
         // Setup Camera
         let camera = AVCaptureDevice.default(for: .video)
-        
         
         if let device = camera {
             for vFormat in camera!.formats {
@@ -105,7 +158,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
             }
             
 //            device.addObserver(self, forKeyPath: "adjustingFocus", options: .new, context: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: device)
         }
         
         do {
@@ -136,6 +188,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
         if self.captureSession.canAddOutput(self.movieOutput) {
             self.captureSession.addOutput(self.movieOutput)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: self.activeInput.device)
         
         return true
     }

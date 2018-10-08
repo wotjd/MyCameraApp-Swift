@@ -84,7 +84,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDK-IQ-FDW">
                                 <rect key="frame" x="0.0" y="583" width="375" height="84"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8t0-jo-yOy" customClass="KYShutterButton" customModule="MyCameraApp3" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8t0-jo-yOy" customClass="KYShutterButton" customModule="MyCameraApp3" customModuleProvider="target">
                                         <rect key="frame" x="155" y="10" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
@@ -113,6 +113,7 @@
                         <outlet property="camPreview" destination="FZZ-er-z7Z" id="Q6i-Gn-8nL"/>
                         <outlet property="exposureSlider" destination="Ls5-zV-dpM" id="WPw-LW-OMV"/>
                         <outlet property="flashButton" destination="oVP-UP-DNF" id="nWf-tX-vwR"/>
+                        <outlet property="recordingButton" destination="8t0-jo-yOy" id="X6f-q4-gLP"/>
                         <outlet property="recordingTimeLabel" destination="3XL-He-s1r" id="puz-dX-1s9"/>
                         <outlet property="zoomLabel" destination="InY-3Y-V48" id="hZ1-II-jgw"/>
                         <outlet property="zoomSlider" destination="OhH-H2-1yL" id="hG7-Ec-T6o"/>
