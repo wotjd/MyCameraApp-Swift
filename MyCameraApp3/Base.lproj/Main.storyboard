@@ -18,11 +18,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FZZ-er-z7Z">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZZ-er-z7Z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Not Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOS-Wy-UVl">
+                                        <rect key="frame" x="72.5" y="315.5" width="230" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="LOS-Wy-UVl" firstAttribute="centerY" secondItem="FZZ-er-z7Z" secondAttribute="centerY" id="Ryf-bX-o6G"/>
+                                    <constraint firstItem="LOS-Wy-UVl" firstAttribute="centerX" secondItem="FZZ-er-z7Z" secondAttribute="centerX" id="eby-cU-hG7"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="JXk-Uf-9bA" appends="YES" id="v2o-oI-nPn"/>
                                     <outletCollection property="gestureRecognizers" destination="mYL-j4-Zmf" appends="YES" id="gq4-6J-7H2"/>
@@ -32,48 +43,86 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lII-hy-h8k">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVP-UP-DNF">
-                                        <rect key="frame" x="175" y="13" width="24" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVP-UP-DNF">
+                                        <rect key="frame" x="13" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="kEu-0X-8BA"/>
+                                            <constraint firstAttribute="width" constant="24" id="t4s-S1-dTL"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
-                                        <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="Flash On Icon"/>
                                         <connections>
                                             <action selector="flashTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FKQ-zZ-Cki"/>
                                         </connections>
                                     </button>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InY-3Y-V48">
-                                        <rect key="frame" x="32" y="13" width="310" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <segmentedControl opaque="NO" alpha="0.0" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="czb-ee-9xk">
+                                        <rect key="frame" x="94" y="11" width="187" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="MKX-5o-ePC"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="187" id="oFB-Io-Bpf"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Auto"/>
+                                            <segment title="On"/>
+                                            <segment title="Off"/>
+                                        </segments>
+                                        <color key="tintColor" red="1" green="0.7725490196" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="flashSegmentTap:" destination="BYZ-38-t0r" eventType="valueChanged" id="7hu-js-54L"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XL-He-s1r">
+                                        <rect key="frame" x="130" y="12.5" width="115" height="25"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="a7S-hj-G2S"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="nff-36-aey"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGD-Jt-7YZ">
+                                        <rect key="frame" x="332" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="43g-Q2-4kO"/>
+                                            <constraint firstAttribute="width" constant="24" id="u9z-D4-72H"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="Photo Camera Icon"/>
+                                        <connections>
+                                            <action selector="cameraTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KHT-Qf-Ehp"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="kdY-Bl-SEP"/>
-                                    <constraint firstAttribute="width" constant="375" id="yTW-dp-27E"/>
+                                    <constraint firstAttribute="trailing" secondItem="fGD-Jt-7YZ" secondAttribute="trailing" constant="19" id="1wq-Ju-teY"/>
+                                    <constraint firstItem="fGD-Jt-7YZ" firstAttribute="centerY" secondItem="lII-hy-h8k" secondAttribute="centerY" id="3w9-JL-mJc"/>
+                                    <constraint firstAttribute="height" constant="50" id="CMP-wP-D8n"/>
+                                    <constraint firstItem="fGD-Jt-7YZ" firstAttribute="top" secondItem="lII-hy-h8k" secondAttribute="top" constant="13" id="ESw-dB-A9v"/>
+                                    <constraint firstItem="oVP-UP-DNF" firstAttribute="centerY" secondItem="lII-hy-h8k" secondAttribute="centerY" id="MEA-E6-6OZ"/>
+                                    <constraint firstItem="oVP-UP-DNF" firstAttribute="leading" secondItem="lII-hy-h8k" secondAttribute="leading" constant="13" id="Ppa-tC-BO8"/>
+                                    <constraint firstItem="czb-ee-9xk" firstAttribute="centerY" secondItem="lII-hy-h8k" secondAttribute="centerY" id="jDL-PK-kee"/>
+                                    <constraint firstItem="czb-ee-9xk" firstAttribute="centerX" secondItem="lII-hy-h8k" secondAttribute="centerX" id="mDR-DB-H2C"/>
+                                    <constraint firstItem="3XL-He-s1r" firstAttribute="centerX" secondItem="lII-hy-h8k" secondAttribute="centerX" id="rtM-Pn-GTK"/>
+                                    <constraint firstItem="oVP-UP-DNF" firstAttribute="top" secondItem="lII-hy-h8k" secondAttribute="top" constant="13" id="uIv-mP-NkT"/>
+                                    <constraint firstItem="3XL-He-s1r" firstAttribute="centerY" secondItem="lII-hy-h8k" secondAttribute="centerY" id="vLe-wa-43e"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XL-He-s1r">
-                                <rect key="frame" x="130" y="50" width="115" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-zV-dpM">
-                                <rect key="frame" x="30" y="319" width="314" height="30"/>
+                                <rect key="frame" x="30" y="353" width="354" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="exposureSlide:" destination="BYZ-38-t0r" eventType="valueChanged" id="YpH-fK-EnW"/>
                                 </connections>
                             </slider>
-                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="16" translatesAutoresizingMaskIntoConstraints="NO" id="OhH-H2-1yL">
-                                <rect key="frame" x="30" y="543" width="314" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="16" translatesAutoresizingMaskIntoConstraints="NO" id="OhH-H2-1yL">
+                                <rect key="frame" x="30" y="542" width="315" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="x5m-MG-RFp"/>
+                                </constraints>
                                 <connections>
                                     <action selector="sliderTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="pPk-Dd-781"/>
                                     <action selector="sliderTouchUp:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="DIM-L6-Sbl"/>
@@ -84,9 +133,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDK-IQ-FDW">
                                 <rect key="frame" x="0.0" y="583" width="375" height="84"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8t0-jo-yOy" customClass="KYShutterButton" customModule="MyCameraApp3" customModuleProvider="target">
-                                        <rect key="frame" x="155" y="10" width="64" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8t0-jo-yOy" customClass="KYShutterButton" customModule="MyCameraApp3" customModuleProvider="target">
+                                        <rect key="frame" x="155.5" y="10" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="kZL-Fq-Con"/>
+                                            <constraint firstAttribute="width" constant="64" id="zHa-TY-lVA"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="recordTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aZh-yb-Ada"/>
                                         </connections>
@@ -94,28 +146,42 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="7Qj-Dc-2pF"/>
-                                    <constraint firstAttribute="width" constant="375" id="Oat-SX-K44"/>
+                                    <constraint firstItem="8t0-jo-yOy" firstAttribute="centerX" secondItem="tDK-IQ-FDW" secondAttribute="centerX" id="USw-BC-XIT"/>
+                                    <constraint firstAttribute="height" constant="84" id="gEl-rA-8or"/>
+                                    <constraint firstItem="8t0-jo-yOy" firstAttribute="centerY" secondItem="tDK-IQ-FDW" secondAttribute="centerY" id="jUK-ML-h1c"/>
+                                    <constraint firstItem="8t0-jo-yOy" firstAttribute="centerY" secondItem="tDK-IQ-FDW" secondAttribute="centerY" id="vib-sZ-Fvv"/>
+                                    <constraint firstItem="8t0-jo-yOy" firstAttribute="centerX" secondItem="tDK-IQ-FDW" secondAttribute="centerX" id="zz5-O7-PPd"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="lII-hy-h8k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Urf-bk-X1Y"/>
-                            <constraint firstItem="tDK-IQ-FDW" firstAttribute="top" secondItem="lII-hy-h8k" secondAttribute="bottom" constant="533" id="mn7-5Q-ylE"/>
-                            <constraint firstItem="tDK-IQ-FDW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oNa-0x-YbJ"/>
-                            <constraint firstItem="lII-hy-h8k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zCQ-RZ-sEt"/>
+                            <constraint firstItem="lII-hy-h8k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1oa-VX-z9u"/>
+                            <constraint firstItem="OhH-H2-1yL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="3ol-t8-4d2"/>
+                            <constraint firstItem="tDK-IQ-FDW" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="7dl-MX-fJj"/>
+                            <constraint firstItem="FZZ-er-z7Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9hQ-KP-xMD"/>
+                            <constraint firstItem="FZZ-er-z7Z" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Bf6-ZQ-OiB"/>
+                            <constraint firstItem="lII-hy-h8k" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="M26-OP-0qb"/>
+                            <constraint firstItem="FZZ-er-z7Z" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="eRw-ie-VTs"/>
+                            <constraint firstItem="tDK-IQ-FDW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gt8-44-WN7"/>
+                            <constraint firstItem="tDK-IQ-FDW" firstAttribute="top" secondItem="OhH-H2-1yL" secondAttribute="bottom" constant="11" id="hvW-Li-ijm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OhH-H2-1yL" secondAttribute="trailing" constant="32" id="ke2-oe-mrG"/>
+                            <constraint firstItem="tDK-IQ-FDW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lPp-NB-CpZ"/>
+                            <constraint firstItem="lII-hy-h8k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="mkE-g3-5w6"/>
+                            <constraint firstItem="FZZ-er-z7Z" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="n8h-Ib-6B7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="camPreview" destination="FZZ-er-z7Z" id="Q6i-Gn-8nL"/>
+                        <outlet property="cameraChangeButton" destination="fGD-Jt-7YZ" id="j1Y-VW-9GX"/>
                         <outlet property="exposureSlider" destination="Ls5-zV-dpM" id="WPw-LW-OMV"/>
                         <outlet property="flashButton" destination="oVP-UP-DNF" id="nWf-tX-vwR"/>
+                        <outlet property="flashStateSegment" destination="czb-ee-9xk" id="I6P-ti-ISK"/>
+                        <outlet property="notFoundLabel" destination="LOS-Wy-UVl" id="y8C-Ep-L5h"/>
                         <outlet property="recordingButton" destination="8t0-jo-yOy" id="X6f-q4-gLP"/>
                         <outlet property="recordingTimeLabel" destination="3XL-He-s1r" id="puz-dX-1s9"/>
-                        <outlet property="zoomLabel" destination="InY-3Y-V48" id="hZ1-II-jgw"/>
                         <outlet property="zoomSlider" destination="OhH-H2-1yL" id="hG7-Ec-T6o"/>
                     </connections>
                 </viewController>
@@ -141,5 +207,6 @@
     </scenes>
     <resources>
         <image name="Flash On Icon" width="24" height="24"/>
+        <image name="Photo Camera Icon" width="24" height="24"/>
     </resources>
 </document>
