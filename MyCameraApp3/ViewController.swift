@@ -61,46 +61,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
 //        recordingTimeLabel.layer.masksToBounds = true
 //        recordingTimeLabel.layer.cornerRadius = 10
         
-        switch PHPhotoLibrary.authorizationStatus() {
-        case .authorized:
-            break;
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization() { status in
-                if status != .authorized {
-                    self.isPhotoAuthorized = false
-                }
-            }
-        default:
-            self.isPhotoAuthorized = false
-        }
-        
-        
-        switch AVCaptureDevice.authorizationStatus(for: .audio) {
-        case .authorized:
-            break;
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .audio, completionHandler: { granted in
-                if !granted {
-                    self.isAudioAuthorized = false
-                }
-            })
-        default:
-            self.isAudioAuthorized = false
-        }
-        
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            break
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video, completionHandler: { granted in
-                if !granted {
-                    self.isVideoAuthorized = false
-                }
-            })
-        default:
-            self.isVideoAuthorized = false
-        }
-        
+        self.authorizationProcess()
         self.setupPreview()
         self.sessionQueue.async {
             self.isSetupSuccess = self.setupSession()
@@ -184,16 +145,6 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "adjustingFocus" {
-            if self.activeInput.device.isAdjustingFocus {
-                print("adjusting focus")
-            } else {
-                print("ignoring adjusting focus")
-            }
-        }
-    }
-    
     @objc func subjectAreaDidChange(notification: NSNotification) {
         let devicePoint = CGPoint(x: 0.5, y: 0.5)
         print("subjectAreaDidChange")
@@ -226,8 +177,12 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
                 self.captureSession.removeInput(self.activeInput)
                 
                 if self.captureSession.canAddInput(input) {
+                    NotificationCenter.default.removeObserver(self, name: .AVCaptureDeviceSubjectAreaDidChange, object: self.activeInput.device)
+                    
                     self.captureSession.addInput(input)
                     self.activeInput = input
+                    
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: input.device)
                 } else {
                     self.captureSession.addInput(self.activeInput)
                 }
@@ -372,6 +327,49 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
 }
 
 extension ViewController {
+    
+    func authorizationProcess() {
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            break;
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization() { status in
+                if status != .authorized {
+                    self.isPhotoAuthorized = false
+                }
+            }
+        default:
+            self.isPhotoAuthorized = false
+        }
+        
+        
+        switch AVCaptureDevice.authorizationStatus(for: .audio) {
+        case .authorized:
+            break;
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .audio, completionHandler: { granted in
+                if !granted {
+                    self.isAudioAuthorized = false
+                }
+            })
+        default:
+            self.isAudioAuthorized = false
+        }
+        
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            break
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { granted in
+                if !granted {
+                    self.isVideoAuthorized = false
+                }
+            })
+        default:
+            self.isVideoAuthorized = false
+        }
+    }
+    
     func setupPreview() {
         // Configure previewlayer
         self.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
@@ -451,7 +449,8 @@ extension ViewController {
             self.captureSession.addOutput(self.movieOutput)
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: self.activeInput.device)
+        // FIX :
+        NotificationCenter.default.addObserver(self, selector: #selector(self.subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: self.activeInput.device)
         
         return true
     }
@@ -487,13 +486,18 @@ extension ViewController {
     
     func startRecording() {
         if self.movieOutput.isRecording == false {
-            let connection = self.movieOutput.connection(with: .video)
-            if (connection?.isVideoOrientationSupported)! {
-                connection?.videoOrientation = self.currentVideoOrientation()
-            }
-            
-            if (connection?.isVideoStabilizationSupported)! {
-                connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
+            if let connection = self.movieOutput.connection(with: .video) {
+                if connection.isVideoOrientationSupported {
+                    connection.videoOrientation = self.currentVideoOrientation()
+                }
+                
+                if connection.isVideoMirroringSupported {
+                    connection.isVideoMirrored = self.activeInput.device.position == .front
+                }
+                
+                if connection.isVideoStabilizationSupported {
+                    connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
+                }
             }
             
             let device = self.activeInput.device
@@ -621,12 +625,13 @@ extension ViewController {
                 try device.lockForConfiguration()
                 device.videoZoomFactor = factor
                 //                self.zoomLabel.text = "Zoom Factor : \(Int(factor * 100))%"
-                if !isSlider {
-                    self.zoomSlider.setValue(Float(factor), animated: true)
-                }
                 device.unlockForConfiguration()
             } catch {
                 print("Could not lock device for configuration: \(error)")
+            }
+            
+            if !isSlider {
+                self.zoomSlider.setValue(Float(factor), animated: true)
             }
         }
     }
